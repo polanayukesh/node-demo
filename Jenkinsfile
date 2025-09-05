@@ -1,6 +1,9 @@
 pipeline {
   agent any
-  tools { nodejs 'NOdeJs' }   // must match Global Tool Config in Jenkins
+
+  tools { 
+    nodejs 'node-18'   // must match the NodeJS name from Global Tool Config
+  }
 
   options {
     timestamps()
@@ -17,7 +20,14 @@ pipeline {
 
     stage('Install') {
       steps {
-        sh 'npm ci'
+        script {
+          if (fileExists('package-lock.json')) {
+            sh 'npm ci'
+          } else {
+            echo "⚠️ package-lock.json not found, falling back to npm install"
+            sh 'npm install'
+          }
+        }
       }
     }
 
@@ -51,4 +61,3 @@ pipeline {
     }
   }
 }
-
