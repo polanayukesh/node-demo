@@ -31,19 +31,20 @@ pipeline {
       }
     }
 
-   stage('Lint') {
-  steps {
-    sh 'npm run lint:ci'
-  }
-  post {
-    always {
-      recordIssues(
-        tools: [esLint(pattern: 'reports/eslint/eslint.json')]
-      )
+    stage('Lint') {
+      steps {
+        // Make sure directory exists before writing lint results
+        sh 'mkdir -p reports/eslint'
+        sh 'npm run lint:ci'
+      }
+      post {
+        always {
+          recordIssues(
+            tools: [eslint(pattern: 'reports/eslint/eslint.json')]
+          )
+        }
+      }
     }
-  }
-}
-
 
     stage('Test') {
       steps {
