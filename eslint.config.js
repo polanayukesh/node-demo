@@ -1,13 +1,12 @@
-// eslint.config.js
-import js from "@eslint/js";
+const js = require("@eslint/js");
 
-export default [
-  js.configs.recommended,   // start with ESLint recommended rules
+module.exports = [
+  js.configs.recommended,  // ESLint's recommended rules
   {
-    files: ["src/**/*.js"], // apply to all JS files in src/
+    files: ["src/**/*.js"],  // only lint source files
     rules: {
-      "no-unused-vars": "warn",
-      "no-console": "off"
+      "no-unused-vars": "warn",  // don't fail build for unused vars
+      "no-console": "off"        // allow console.log (common in Node apps)
     }
   }
 ];
