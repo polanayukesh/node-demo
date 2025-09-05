@@ -1,6 +1,6 @@
 pipeline {
   agent any
-  tools { nodejs 'node-NOdeJs' }   // must match Global Tool Config in Jenkins
+  tools { nodejs 'NOdeJs' }   // must match Global Tool Config in Jenkins
 
   options {
     timestamps()
