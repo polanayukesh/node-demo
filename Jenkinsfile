@@ -31,16 +31,19 @@ pipeline {
       }
     }
 
-    stage('Lint') {
-      steps {
-        sh 'npm run lint:ci'
-      }
-      post {
-        always {
-          recordIssues tools: [eslint(pattern: 'reports/eslint/eslint.json')]
-        }
-      }
+   stage('Lint') {
+  steps {
+    sh 'npm run lint:ci'
+  }
+  post {
+    always {
+      recordIssues(
+        tools: [esLint(pattern: 'reports/eslint/eslint.json')]
+      )
     }
+  }
+}
+
 
     stage('Test') {
       steps {
